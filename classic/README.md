@@ -1,24 +1,22 @@
 # Macros for WoW Classic
 
-## Show/Hide Player Names
+## Toggle Friendly Units' Names and Nameplates
 
-This macro toggles among 3 modes: showing NPCs' names, showing friendly players' names, and showing neither.
-
-I typically turn on NPCs' names in the wild to look out for mobs, and turn it off in town if I don't have to find a specific NPC. But occasionally I need to turn on players' names to quickly find someone nearby.
+This macro toggles among 3 modes: showing nameplates of all friendly units, showing only names (instead of nameplates) of NPCs, and showing neither.
 
 ```
-/run local a,b=GetCVarBool("UnitNameNPC"),GetCVarBool("UnitNameFriendlyPlayerName");SetCVar("UnitNameNPC",(not a and not b) and 1 or 0);SetCVar("UnitNameFriendlyPlayerName",(a and not b) and 1 or 0)
+/run local a,b=GetCVarBool("nameplateShowFriends"),GetCVarBool("UnitNameNPC");SetCVar("nameplateShowFriends",(not a and not b) and 1 or 0);SetCVar("UnitNameNPC",(a and not b) and 1 or 0)
 ```
 
 Original:
 
 ```lua
-local npcNameVisible = GetCVarBool("UnitNameNPC")
-local playerNameVisible = GetCVarBool("UnitNameFriendlyPlayerName")
+local nameplateShowFriends = GetCVarBool("nameplateShowFriends")
+local UnitNameNPC = GetCVarBool("UnitNameNPC")
+
+SetCVar("nameplateShowFriends",
+    (not nameplateShowFriends and not UnitNameNPC) and 1 or 0)
 
 SetCVar("UnitNameNPC",
-    (not npcNameVisible and not playerNameVisible) and 1 or 0)
-
-SetCVar("UnitNameFriendlyPlayerName",
-    (npcNameVisible and not playerNameVisible) and 1 or 0)
+    (nameplateShowFriends and not UnitNameNPC) and 1 or 0)
 ```
