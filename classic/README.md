@@ -20,3 +20,16 @@ SetCVar("nameplateShowFriends",
 SetCVar("UnitNameNPC",
     (nameplateShowFriends and not UnitNameNPC) and 1 or 0)
 ```
+
+## Toggle Click To Move
+
+```
+/run SetCVar("autoInteract",GetCVarBool("autoInteract") and 0 or 1)
+```
+
+Original:
+
+```lua
+local autoInteract = GetCVarBool("autoInteract")
+SetCVar("autoInteract", autoInteract and 0 or 1)
+```
